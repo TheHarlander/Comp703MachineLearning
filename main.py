@@ -25,6 +25,12 @@ obstacleX = random.randint(200, 600)
 obstacleY = 0
 obstacleYSpeed = 0.2
 
+# Coins
+coinImage = pygame.image.load('coin.png')
+coinX = random.randint(200, 600)
+coinY = 0
+coinSpeed = 0.3
+
 # Score
 scoreValue = 0
 font = pygame.font.Font('freesansbold.ttf', 26)
@@ -59,6 +65,8 @@ def player(x, y):
 def obstacle(x, y):
     screen.blit(obstacleImage, (x, y))
 
+def coin(x,y):
+    screen.blit(coinImage, (x, y))
 
 def isCollision(obstacleX, obstacleY, playerX, playerY):
     distance = math.sqrt((math.pow(obstacleX - playerX, 2)) + (math.pow(obstacleY - playerY, 2)))
@@ -97,9 +105,11 @@ while running:
             if event.key == pygame.K_UP:
                 obstacleYSpeed += 0.1
                 roadMarkingSpeed += 0.1
+                coinSpeed += 0.1
             if event.key == pygame.K_DOWN:
                 obstacleYSpeed -= 0.1
                 roadMarkingSpeed -= 0.1
+                coinSpeed -= 0.1
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -133,15 +143,28 @@ while running:
         roadMarking2Y = -50
         roadMarking2X = 400
 
+    # Coin logic
+    coinY += coinSpeed
+    coinCollision = isCollision(coinX, coinY, playerX, playerY)
+    if coinCollision:
+        coinY = -50
+        coinX = random.randint(175,625)
+        scoreValue +=1
+    if coinY >= 850:
+        coinY = -50
+        coinX = random.randint(175, 625)
+
     # Collision/ Game over
     collision = isCollision(obstacleX, obstacleY, playerX, playerY)
     if collision:
         obstacleYSpeed = 0
         playerXSpeed = 0
         roadMarkingSpeed = 0
+        coinSpeed = 0
         gameOverText()
 
     player(playerX, playerY)
     obstacle(obstacleX, obstacleY)
+    coin(coinX,coinY)
     showScore(textX, textY)
     pygame.display.update()
