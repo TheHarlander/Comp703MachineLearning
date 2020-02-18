@@ -48,26 +48,34 @@ roadMarking2Y = 425
 roadMarkingSpeed = 0.2
 
 
+# Renders text(score) to screen at x , y
 def showScore(x, y):
     score = font.render("Score: " + str(scoreValue), True, (0, 0, 0))
     screen.blit(score, (x, y))
 
 
+# Renders game over text(score) to screen at x , y
 def gameOverText():
     gameOverText = gameOverFont.render("Score: " + str(scoreValue), True, (0, 0, 0))
     screen.blit(gameOverText, (280, 300))
 
 
+# Draw player at x , y
 def player(x, y):
     screen.blit(playerImage, (x, y))
 
 
+# Draw obstacle at x , y
 def obstacle(x, y):
     screen.blit(obstacleImage, (x, y))
 
-def coin(x,y):
+
+# Draw coin at x , y
+def coin(x, y):
     screen.blit(coinImage, (x, y))
 
+
+# distance between 2 coordinates, (less than 27), collision
 def isCollision(obstacleX, obstacleY, playerX, playerY):
     distance = math.sqrt((math.pow(obstacleX - playerX, 2)) + (math.pow(obstacleY - playerY, 2)))
     if distance < 27:
@@ -111,19 +119,20 @@ while running:
                 roadMarkingSpeed -= 0.1
                 coinSpeed -= 0.1
 
+        # Maybe add some logic here for retaining speed when released, maybe halves?
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerXSpeed = 0
-
+    # Update player left/right speed
     playerX += playerXSpeed
 
-    # Checking for boundaries
+    # Checking for boundaries(barriers)
     if playerX <= 100:
         playerX = 100
     elif playerX > 640:
         playerX = 640
 
-    # Obstacle movement + respawn
+    # Obstacle movement + re spawn
     obstacleY += obstacleYSpeed
 
     if obstacleY >= 850:
@@ -133,7 +142,7 @@ while running:
     if scoreValue == 10:
         print("10 score met spawn new obstacle")
 
-    # Road markings + respawn
+    # Road markings + re spawn
     roadMarking1Y += roadMarkingSpeed
     roadMarking2Y += roadMarkingSpeed
     if roadMarking1Y >= 850:
@@ -148,8 +157,8 @@ while running:
     coinCollision = isCollision(coinX, coinY, playerX, playerY)
     if coinCollision:
         coinY = -50
-        coinX = random.randint(175,625)
-        scoreValue +=1
+        coinX = random.randint(175, 625)
+        scoreValue += 1
     if coinY >= 850:
         coinY = -50
         coinX = random.randint(175, 625)
@@ -163,8 +172,9 @@ while running:
         coinSpeed = 0
         gameOverText()
 
+    # Update image locations
     player(playerX, playerY)
     obstacle(obstacleX, obstacleY)
-    coin(coinX,coinY)
+    coin(coinX, coinY)
     showScore(textX, textY)
     pygame.display.update()
