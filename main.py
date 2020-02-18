@@ -47,6 +47,8 @@ roadMarking2X = 400
 roadMarking2Y = 425
 roadMarkingSpeed = 0.2
 
+# Lane arrays
+
 
 # Renders text(score) to screen at x , y
 def showScore(x, y):
@@ -123,6 +125,41 @@ while running:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerXSpeed = 0
+
+    # some form of ai thing
+
+    if (obstacleY > 400) and (obstacleX <= playerX <= obstacleX + 32):
+        playerXSpeed = 0.3
+    elif coinX <= playerX:
+        playerXSpeed = -0.3
+    if (obstacleY > 400) and obstacleX >= playerX >= obstacleX - 32:
+        playerXSpeed = -0.3
+    elif coinX >= playerX:
+        playerXSpeed = 0.3
+
+
+
+    '''
+    if coinX <= playerX:
+        playerXSpeed = -0.3
+    elif coinX == playerX:
+        playerXSpeed = 0.0
+
+    if coinX >= playerX:
+        playerXSpeed = 0.3
+    elif coinX == playerX:
+        playerXSpeed = 0.0
+        
+    if (obstacleY > 400) and (obstacleX <= playerX <= obstacleX + 32):
+        playerXSpeed = 0.3
+    elif playerX >= obstacleX + 40:
+        playerXSpeed = 0.0
+    if (obstacleY > 400) and obstacleX >= playerX >= obstacleX - 32:
+        playerXSpeed = -0.3
+    elif playerX <= obstacleX - 40:
+        playerXSpeed = 0.0
+        
+    '''
     # Update player left/right speed
     playerX += playerXSpeed
 
@@ -139,6 +176,9 @@ while running:
         obstacleY = -50
         obstacleX = random.randint(175, 625)
         scoreValue += 1
+        obstacleYSpeed += 0.01
+        roadMarkingSpeed += 0.01
+        coinSpeed += 0.01
     if scoreValue == 10:
         print("10 score met spawn new obstacle")
 
