@@ -1,7 +1,11 @@
 import pygame
 import random
 import math
+
+from openpyxl import Workbook
+
 from time import sleep
+
 
 # intialize the pygame
 pygame.init()
@@ -56,6 +60,20 @@ errorRate = 1
 
 # Game restart
 gameOver = False
+
+# Data sending
+wb = Workbook()
+# grab the active worksheet
+ws = wb.active
+ws['A1'] = "Time"
+ws['B1'] = "PlayerPos"
+ws['C1'] = "ObstacleXPos"
+ws['D1'] = "CoinXPos"
+
+ws.append([1,playerX,obstacleX, coinX])
+
+wb.save('MLDrivingData.csv')
+
 
 # Renders text(score) to screen at x , y
 def showScore(x, y):
@@ -210,9 +228,17 @@ while running:
     coinY += coinSpeed
     coinCollision = isCollision(coinX, coinY, playerX, playerY)
     if coinCollision:
+
+       # add to excel
+        ws.append([1, playerX, obstacleX, coinX])
+        wb.save('MLDrivingData.csv')
+
+
         coinY = -50
         coinX = random.randint(175, 625)
         scoreValue += 1
+
+
     if coinY >= 850:
         coinY = -50
         coinX = random.randint(175, 625)
