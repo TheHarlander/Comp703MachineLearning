@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+from time import sleep
 
 # intialize the pygame
 pygame.init()
@@ -25,13 +26,13 @@ rightSpeed = 0.3
 obstacleImage = pygame.image.load('cone.png')
 obstacleX = random.randint(200, 600)
 obstacleY = 0
-obstacleYSpeed = 0.2
+obstacleYSpeed = 0.4
 
 # Coins
 coinImage = pygame.image.load('coin.png')
 coinX = random.randint(200, 600)
 coinY = 0
-coinSpeed = 0.3
+coinSpeed = 0.5
 
 # Score
 scoreValue = 0
@@ -47,14 +48,14 @@ roadMarking1X = 400
 roadMarking1Y = 0
 roadMarking2X = 400
 roadMarking2Y = 425
-roadMarkingSpeed = 0.2
+roadMarkingSpeed = 0.4
 
 # Error rate 24 and it collides
 errorSize = 50
 errorRate = 1
 
-# Lane arrays
-
+# Game restart
+gameOver = False
 
 # Renders text(score) to screen at x , y
 def showScore(x, y):
@@ -86,7 +87,7 @@ def coin(x, y):
 # distance between 2 coordinates, (less than 27), collision
 def isCollision(obstacleX, obstacleY, playerX, playerY):
     distance = math.sqrt((math.pow(obstacleX - playerX, 2)) + (math.pow(obstacleY - playerY, 2)))
-    if distance < 27:
+    if distance < 28:
         return True
     else:
         return False
@@ -184,9 +185,9 @@ while running:
         scoreValue += 1
 
         # Increase difficulty
-       # obstacleYSpeed += 0.01
-       # roadMarkingSpeed += 0.01
-        #coinSpeed += 0.01
+        obstacleYSpeed += 0.01
+        roadMarkingSpeed += 0.01
+        coinSpeed += 0.01
 
         # Decrease error size
         errorSize = errorSize - errorRate
@@ -224,6 +225,20 @@ while running:
         roadMarkingSpeed = 0
         coinSpeed = 0
         gameOverText()
+        gameOver = True
+
+    if gameOver == True:
+        obstacleY = -50
+        obstacleX = random.randint(175, 625)
+        obstacleYSpeed = 0.4
+        roadMarkingSpeed = 0.4
+        coinSpeed = 0.5
+        coinY = -50
+        coinX = random.randint(175, 625)
+        scoreValue = 0
+        errorSize = 50
+        sleep(3)
+        gameOver = False
 
     # Update image locations
     player(playerX, playerY)
