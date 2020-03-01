@@ -69,8 +69,9 @@ ws['A1'] = "Time"
 ws['B1'] = "PlayerPos"
 ws['C1'] = "ObstacleXPos"
 ws['D1'] = "CoinXPos"
+ws['E1'] = 'Score'
 
-ws.append([1,playerX,obstacleX, coinX])
+ws.append([1,playerX,obstacleX, coinX, scoreValue])
 
 wb.save('MLDrivingData.csv')
 
@@ -230,7 +231,7 @@ while running:
     if coinCollision:
 
        # add to excel
-        ws.append([1, playerX, obstacleX, coinX])
+        ws.append([1, playerX, obstacleX, coinX, scoreValue])
         wb.save('MLDrivingData.csv')
 
 
