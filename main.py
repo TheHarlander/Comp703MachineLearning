@@ -62,19 +62,32 @@ errorRate = 1
 gameOver = False
 
 # Data sending
+playthrough = 0
+
 wb = Workbook()
-# grab the active worksheet
+# Grab the active worksheet
 ws = wb.active
+
+# Setting up a incremental string for naming the sheets
+sheetTitle = "Run" + str(playthrough)
+ws1 = wb.create_sheet(sheetTitle)
+
+# Switching Sheets to the last one
+sheets = wb.sheetnames
+for s_name in sheets:
+    ws = wb[s_name]
+    
+# Set up top titles in excel
 ws['A1'] = "Time"
 ws['B1'] = "PlayerPos"
 ws['C1'] = "ObstacleXPos"
 ws['D1'] = "CoinXPos"
 ws['E1'] = 'Score'
 
-ws.append([1,playerX,obstacleX, coinX, scoreValue])
-
 wb.save('MLDrivingData.csv')
-
+#ws = wb.active
+#wb.active = 1
+###############################################################################################################
 
 # Renders text(score) to screen at x , y
 def showScore(x, y):
@@ -265,8 +278,32 @@ while running:
         scoreValue = 0
         errorSize = 50
         sleep(3)
-        gameOver = False
+        playthrough + 1
 
+        sheetTitle = "Run" + str(playthrough)
+        ws1 = wb.create_sheet(sheetTitle)
+
+        wb.save('MLDrivingData.csv')
+        sheets = wb.sheetnames
+        for s_name in sheets:
+            ws = wb[s_name]
+            print(s_name)
+        ws['A1'] = "Time"
+        ws['B1'] = "PlayerPos"
+        ws['C1'] = "ObstacleXPos"
+        ws['D1'] = "CoinXPos"
+        ws['E1'] = 'Score'
+        wb.save('MLDrivingData.csv')
+        gameOver = False
+        '''
+        ws1 = wb.create_sheet("mysheet")
+        ws.title = "Run" + str(playthrough)
+        for ws in wb:
+            playthrough + 1
+            print(playthrough)
+        wb.active = "Run" + str(playthrough)
+        gameOver = False
+        '''
     # Update image locations
     player(playerX, playerY)
     obstacle(obstacleX, obstacleY)

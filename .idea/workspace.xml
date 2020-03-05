@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9561f727-6230-4c01-af30-9e7ffe266413" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/703MachineLeearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/703MachineLeearning.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MLDrivingData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/MLDrivingData.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -32,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Comp703MLTesting" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -114,29 +112,33 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1581930871507" />
-    <state width="1899" height="213" key="GridCell.Tab.0.bottom" timestamp="1583057096073">
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1583321144192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="213" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583057096073" />
-    <state width="1899" height="213" key="GridCell.Tab.0.center" timestamp="1583057096073">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583321144192" />
+    <state width="1899" height="213" key="GridCell.Tab.0.bottom" timestamp="1583402200566">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="213" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583057096073" />
-    <state width="1899" height="213" key="GridCell.Tab.0.left" timestamp="1583057096073">
+    <state width="1899" height="213" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583402200566" />
+    <state width="1899" height="213" key="GridCell.Tab.0.center" timestamp="1583402200566">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="213" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583057096073" />
-    <state width="1899" height="213" key="GridCell.Tab.0.right" timestamp="1583057096073">
+    <state width="1899" height="213" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583402200566" />
+    <state width="1899" height="213" key="GridCell.Tab.0.left" timestamp="1583402200566">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="213" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583057096073" />
+    <state width="1899" height="213" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583402200566" />
+    <state width="1899" height="213" key="GridCell.Tab.0.right" timestamp="1583402200566">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="213" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583402200566" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1583056098950">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583056098950" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1583055875581">
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1583396047053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583055875581" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583396047053" />
   </component>
 </project>
