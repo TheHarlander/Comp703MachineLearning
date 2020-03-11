@@ -23,20 +23,20 @@ playerImage = pygame.image.load('playercar.png')
 playerX = 375
 playerY = 750
 playerXSpeed = 0
-leftSpeed = -0.3
-rightSpeed = 0.3
+leftSpeed = -0.6
+rightSpeed = 0.6
 
 # Obstacle
 obstacleImage = pygame.image.load('cone.png')
 obstacleX = random.randint(200, 600)
 obstacleY = 0
-obstacleYSpeed = 0.4
+obstacleYSpeed = 0.8
 
 # Coins
 coinImage = pygame.image.load('coin.png')
 coinX = random.randint(200, 600)
 coinY = 0
-coinSpeed = 0.5
+coinSpeed = 1
 
 # Score
 scoreValue = 0
@@ -56,7 +56,7 @@ roadMarking1X = 400
 roadMarking1Y = 0
 roadMarking2X = 400
 roadMarking2Y = 425
-roadMarkingSpeed = 0.4
+roadMarkingSpeed = 0.8
 
 # Error rate 24 and it collides
 errorSize = 50
@@ -223,7 +223,7 @@ while running:
 
         # Decrease error size
         errorSize = errorSize - errorRate
-        print(errorSize)
+
 
    # if scoreValue == 10:
        # print("10 score met spawn new obstacle")
@@ -273,9 +273,9 @@ while running:
     if gameOver == True:
         obstacleY = -50
         obstacleX = random.randint(175, 625)
-        obstacleYSpeed = 0.4
-        roadMarkingSpeed = 0.4
-        coinSpeed = 0.5
+        obstacleYSpeed = 0.8
+        roadMarkingSpeed = 0.8
+        coinSpeed = 1
         coinY = -50
         coinX = random.randint(175, 625)
         scoreValue = 0
