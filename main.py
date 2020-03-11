@@ -44,6 +44,10 @@ font = pygame.font.Font('freesansbold.ttf', 26)
 textX = 10
 textY = 10
 
+# Timer
+TIME = pygame.USEREVENT + 1
+pygame.time.set_timer(TIME, 1000)
+time = 0
 # Game Over
 gameOverFont = pygame.font.Font('freesansbold.ttf', 64)
 
@@ -62,21 +66,11 @@ errorRate = 1
 gameOver = False
 
 # Data sending
-playthrough = 0
 
 wb = Workbook()
 # Grab the active worksheet
 ws = wb.active
 
-# Setting up a incremental string for naming the sheets
-sheetTitle = "Run" + str(playthrough)
-ws1 = wb.create_sheet(sheetTitle)
-
-# Switching Sheets to the last one
-sheets = wb.sheetnames
-for s_name in sheets:
-    ws = wb[s_name]
-    
 # Set up top titles in excel
 ws['A1'] = "Time"
 ws['B1'] = "PlayerPos"
@@ -124,8 +118,10 @@ def isCollision(obstacleX, obstacleY, playerX, playerY):
     else:
         return False
 
+##############################################################################################################
 
-# Game Loop
+# Game Loop #
+
 running = True
 while running:
 
@@ -160,6 +156,8 @@ while running:
                 roadMarkingSpeed -= 0.1
                 coinSpeed -= 0.1
 
+        elif event.type == TIME:
+            time += 1
         # Maybe add some logic here for retaining speed when released, maybe halves?
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -215,7 +213,9 @@ while running:
         obstacleY = -50
         obstacleX = random.randint(175, 625)
         scoreValue += 1
-
+        # add to excel
+        ws.append([time, playerX, obstacleX, coinX, scoreValue])
+        wb.save('MLDrivingData.csv')
         # Increase difficulty
         obstacleYSpeed += 0.01
         roadMarkingSpeed += 0.01
@@ -244,7 +244,7 @@ while running:
     if coinCollision:
 
        # add to excel
-        ws.append([1, playerX, obstacleX, coinX, scoreValue])
+        ws.append([time, playerX, obstacleX, coinX, scoreValue])
         wb.save('MLDrivingData.csv')
 
 
@@ -256,6 +256,9 @@ while running:
     if coinY >= 850:
         coinY = -50
         coinX = random.randint(175, 625)
+        # add to excel
+        ws.append([time, playerX, obstacleX, coinX, scoreValue])
+        wb.save('MLDrivingData.csv')
 
     # Collision/ Game over
     collision = isCollision(obstacleX, obstacleY, playerX, playerY)
@@ -278,32 +281,10 @@ while running:
         scoreValue = 0
         errorSize = 50
         sleep(3)
-        playthrough + 1
-
-        sheetTitle = "Run" + str(playthrough)
-        ws1 = wb.create_sheet(sheetTitle)
-
         wb.save('MLDrivingData.csv')
-        sheets = wb.sheetnames
-        for s_name in sheets:
-            ws = wb[s_name]
-            print(s_name)
-        ws['A1'] = "Time"
-        ws['B1'] = "PlayerPos"
-        ws['C1'] = "ObstacleXPos"
-        ws['D1'] = "CoinXPos"
-        ws['E1'] = 'Score'
-        wb.save('MLDrivingData.csv')
+        time = 0
         gameOver = False
-        '''
-        ws1 = wb.create_sheet("mysheet")
-        ws.title = "Run" + str(playthrough)
-        for ws in wb:
-            playthrough + 1
-            print(playthrough)
-        wb.active = "Run" + str(playthrough)
-        gameOver = False
-        '''
+
     # Update image locations
     player(playerX, playerY)
     obstacle(obstacleX, obstacleY)
