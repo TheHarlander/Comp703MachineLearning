@@ -72,11 +72,11 @@ wb = Workbook()
 ws = wb.active
 
 # Set up top titles in excel
-ws['A1'] = "Time"
-ws['B1'] = "PlayerPos"
-ws['C1'] = "ObstacleXPos"
-ws['D1'] = "CoinXPos"
-ws['E1'] = 'Score'
+ws['A1'] = "PlayerPos"
+ws['B1'] = "ObstacleXPos"
+ws['C1'] = "CoinXPos"
+#ws['D1'] =
+#ws['E1'] = 'Score'
 
 wb.save('MLDrivingData.csv')
 #ws = wb.active
@@ -214,8 +214,8 @@ while running:
         obstacleX = random.randint(175, 625)
         scoreValue += 1
         # add to excel
-        ws.append([time, playerX, obstacleX, coinX, scoreValue])
-        wb.save('MLDrivingData.csv')
+        ws.append([playerX, obstacleX, coinX])
+        #wb.save('MLDrivingData.csv')
         # Increase difficulty
         obstacleYSpeed += 0.01
         roadMarkingSpeed += 0.01
@@ -244,8 +244,8 @@ while running:
     if coinCollision:
 
        # add to excel
-        ws.append([time, playerX, obstacleX, coinX, scoreValue])
-        wb.save('MLDrivingData.csv')
+        ws.append([playerX, obstacleX, coinX])
+        #wb.save('MLDrivingData.csv')
 
 
         coinY = -50
@@ -257,8 +257,8 @@ while running:
         coinY = -50
         coinX = random.randint(175, 625)
         # add to excel
-        ws.append([time, playerX, obstacleX, coinX, scoreValue])
-        wb.save('MLDrivingData.csv')
+        ws.append([playerX, obstacleX, coinX])
+        #wb.save('MLDrivingData.csv')
 
     # Collision/ Game over
     collision = isCollision(obstacleX, obstacleY, playerX, playerY)
@@ -280,7 +280,7 @@ while running:
         coinX = random.randint(175, 625)
         scoreValue = 0
         errorSize = 50
-        sleep(3)
+        sleep(1)
         wb.save('MLDrivingData.csv')
         time = 0
         gameOver = False
