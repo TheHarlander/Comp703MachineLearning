@@ -74,7 +74,9 @@ ws = wb.active
 # Set up top titles in excel
 ws['A1'] = "PlayerPos"
 ws['B1'] = "ObstacleXPos"
-ws['C1'] = "CoinXPos"
+ws['C1'] = "ObstacleY"
+ws['D1'] = "CoinXPos"
+ws['E1'] = "CoinYPos"
 #ws['D1'] =
 #ws['E1'] = 'Score'
 
@@ -174,7 +176,11 @@ while running:
     elif coinX >= playerX:
         playerXSpeed = rightSpeed
 
-
+    # Extra data for obstacle
+    if (obstacleY >= 400) and (obstacleY <= 400.7):
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY])
+    if (obstacleY >= 500) and (obstacleY <= 500.7):
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY])
 
     '''
     if coinX <= playerX:
@@ -214,7 +220,7 @@ while running:
         obstacleX = random.randint(175, 625)
         scoreValue += 1
         # add to excel
-        ws.append([playerX, obstacleX, coinX])
+        ws.append([playerX, obstacleX,obstacleY, coinX, coinY])
         #wb.save('MLDrivingData.csv')
         # Increase difficulty
         obstacleYSpeed += 0.01
@@ -244,7 +250,7 @@ while running:
     if coinCollision:
 
        # add to excel
-        ws.append([playerX, obstacleX, coinX])
+        ws.append([playerX, obstacleX,obstacleY, coinX, coinY])
         #wb.save('MLDrivingData.csv')
 
 
@@ -257,7 +263,7 @@ while running:
         coinY = -50
         coinX = random.randint(175, 625)
         # add to excel
-        ws.append([playerX, obstacleX, coinX])
+        ws.append([playerX, obstacleX,obstacleY, coinX, coinY])
         #wb.save('MLDrivingData.csv')
 
     # Collision/ Game over
