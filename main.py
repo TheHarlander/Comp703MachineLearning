@@ -1,11 +1,10 @@
 import pygame
 import random
 import math
-
+from random import *
 from openpyxl import Workbook
-
 from time import sleep
-
+# Images from www.flaticon.com
 
 # intialize the pygame
 pygame.init()
@@ -28,13 +27,13 @@ rightSpeed = 0.6
 
 # Obstacle
 obstacleImage = pygame.image.load('cone.png')
-obstacleX = random.randint(200, 600)
+obstacleX = randint(200, 600)
 obstacleY = 0
 obstacleYSpeed = 0.8
 
 # Coins
 coinImage = pygame.image.load('coin.png')
-coinX = random.randint(200, 600)
+coinX = randint(200, 600)
 coinY = 0
 coinSpeed = 1
 
@@ -65,7 +64,10 @@ errorRate = 1
 # Game restart
 gameOver = False
 
-# Data sending
+# Obstacle near
+nearBool = 0
+
+### Data sending ###
 
 wb = Workbook()
 # Grab the active worksheet
@@ -77,13 +79,12 @@ ws['B1'] = "ObstacleXPos"
 ws['C1'] = "ObstacleY"
 ws['D1'] = "CoinXPos"
 ws['E1'] = "CoinYPos"
-#ws['D1'] =
-#ws['E1'] = 'Score'
+ws['F1'] = "ObstacleNear"
 
 wb.save('MLDrivingData.csv')
-#ws = wb.active
-#wb.active = 1
+
 ###############################################################################################################
+## Functions ##
 
 # Renders text(score) to screen at x , y
 def showScore(x, y):
@@ -136,6 +137,14 @@ while running:
     pygame.draw.rect(screen, (200, 200, 200), [roadMarking1X, roadMarking1Y, 20, 100])
     pygame.draw.rect(screen, (200, 200, 200), [roadMarking2X, roadMarking2Y, 20, 100])
 
+    # bool for when the obstacle is near bottom (data sending)
+    if obstacleY >= 600:
+        nearBool = 1
+    elif obstacleY < 600:
+        nearBool = 0
+
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -160,7 +169,7 @@ while running:
 
         elif event.type == TIME:
             time += 1
-        # Maybe add some logic here for retaining speed when released, maybe halves?
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerXSpeed = 0
@@ -176,33 +185,16 @@ while running:
     elif coinX >= playerX:
         playerXSpeed = rightSpeed
 
-    # Extra data for obstacle
-    if (obstacleY >= 400) and (obstacleY <= 400.7):
-        ws.append([playerX, obstacleX, obstacleY, coinX, coinY])
-    if (obstacleY >= 500) and (obstacleY <= 500.7):
-        ws.append([playerX, obstacleX, obstacleY, coinX, coinY])
+    # Extra data for obstacle the nearer the bottom
+    if (obstacleY >= 450) and (obstacleY <= 450.7):
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY,nearBool])
+    if (obstacleY >= 550) and (obstacleY <= 550.7):
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY,nearBool])
+    if (obstacleY >= 650) and (obstacleY <= 650.7):
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY,nearBool])
+    if (obstacleY >= 750) and (obstacleY <= 750.7):
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY,nearBool])
 
-    '''
-    if coinX <= playerX:
-        playerXSpeed = leftSpeed
-    elif coinX == playerX:
-        playerXSpeed = 0.0
-
-    if coinX >= playerX:
-        playerXSpeed = rightSpeed
-    elif coinX == playerX:
-        playerXSpeed = 0.0
-        
-    if (obstacleY > 400) and (obstacleX <= playerX <= obstacleX + 32):
-        playerXSpeed = rightSpeed
-    elif playerX >= obstacleX + 40:
-        playerXSpeed = 0.0
-    if (obstacleY > 400) and obstacleX >= playerX >= obstacleX - 32:
-        playerXSpeed = leftSpeed
-    elif playerX <= obstacleX - 40:
-        playerXSpeed = 0.0
-        
-    '''
     # Update player left/right speed
     playerX += playerXSpeed
 
@@ -216,25 +208,17 @@ while running:
     obstacleY += obstacleYSpeed
 
     if obstacleY >= 850:
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY, nearBool])
         obstacleY = -50
-        obstacleX = random.randint(175, 625)
+        obstacleX = randint(175, 625)
         scoreValue += 1
-        # add to excel
-        ws.append([playerX, obstacleX,obstacleY, coinX, coinY])
-        #wb.save('MLDrivingData.csv')
-        # Increase difficulty
-        obstacleYSpeed += 0.01
-        roadMarkingSpeed += 0.01
-        coinSpeed += 0.01
 
-        # Decrease error size
-        errorSize = errorSize - errorRate
+        # Decrease error size by chance so it fails at some point and can restart
+        x = randint(1, 100)
+        if x >=75:
+            errorSize = errorSize - errorRate
 
-
-   # if scoreValue == 10:
-       # print("10 score met spawn new obstacle")
-
-    # Road markings + re spawn
+    # Road markings + re spawn #
     roadMarking1Y += roadMarkingSpeed
     roadMarking2Y += roadMarkingSpeed
     if roadMarking1Y >= 850:
@@ -244,29 +228,23 @@ while running:
         roadMarking2Y = -50
         roadMarking2X = 400
 
-    # Coin logic
+    # Coin logic #
     coinY += coinSpeed
     coinCollision = isCollision(coinX, coinY, playerX, playerY)
+
     if coinCollision:
-
-       # add to excel
-        ws.append([playerX, obstacleX,obstacleY, coinX, coinY])
-        #wb.save('MLDrivingData.csv')
-
+        ws.append([playerX, obstacleX,obstacleY, coinX, coinY,nearBool])
 
         coinY = -50
-        coinX = random.randint(175, 625)
+        coinX = randint(175, 625)
         scoreValue += 1
 
-
     if coinY >= 850:
+        ws.append([playerX, obstacleX, obstacleY, coinX, coinY, nearBool])
         coinY = -50
-        coinX = random.randint(175, 625)
-        # add to excel
-        ws.append([playerX, obstacleX,obstacleY, coinX, coinY])
-        #wb.save('MLDrivingData.csv')
+        coinX = randint(175, 625)
 
-    # Collision/ Game over
+    # Collision/ Game over #
     collision = isCollision(obstacleX, obstacleY, playerX, playerY)
     if collision:
         obstacleYSpeed = 0
@@ -278,15 +256,16 @@ while running:
 
     if gameOver == True:
         obstacleY = -50
-        obstacleX = random.randint(175, 625)
+        obstacleX = randint(175, 625)
         obstacleYSpeed = 0.8
         roadMarkingSpeed = 0.8
         coinSpeed = 1
         coinY = -50
-        coinX = random.randint(175, 625)
+        coinX = randint(175, 625)
         scoreValue = 0
         errorSize = 50
         sleep(1)
+        # Save the excel sheet(do at end to save pc hdd from dying)
         wb.save('MLDrivingData.csv')
         time = 0
         gameOver = False
